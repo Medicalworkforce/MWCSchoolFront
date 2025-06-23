@@ -1,4 +1,4 @@
-const API_BASE = "https://mwcschoolback-production.up.railway.app";
+const API_BASE = "mwcschoolback-production-4733.up.railway.app";
 
 
 document.addEventListener("DOMContentLoaded", () => {
