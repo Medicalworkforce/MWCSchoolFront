@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MWC</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .logo {
+      width: 150px; /* taille finale visible */
+      height: auto;
+      animation: zoomOut 3s ease-out forwards;
+    }
+
+    @keyframes zoomOut {
+      0% {
+        transform: scale(2);  /* très grand au début */
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);  /* reste plus grand que 1 */
+        opacity: 1;
+      }
+    }
+  </style>
+  <script>
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 4000); // 4 seconds
+  </script>
+  <link rel="icon" type="image/png" href="MWC.png" />
+</head>
+<body>
+  <img src="MWC.png" alt="Logo" class="logo">
+</body>
+</html>
