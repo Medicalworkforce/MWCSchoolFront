@@ -258,7 +258,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!response.ok) throw new Error(await response.text());
 
-        window.location.href = "Überprüfung.html";
+        showNotification("✅ Daten erfolgreich gespeichert!");
+        setTimeout(() => {
+          window.location.href = "menu.html";
+        }, 1500);
+
       } catch (error) {
         console.error("❌ Erreur mise à jour Step 3:", error);
         alert("Erreur lors de l’enregistrement des données (étape 3)");
