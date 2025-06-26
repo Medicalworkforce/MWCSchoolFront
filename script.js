@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         showNotification("✅ Daten erfolgreich gespeichert!");
         setTimeout(() => {
-          window.location.href = "menu.html";
+          window.location.href = "Überprüfung.html";
         }, 1500);
 
       } catch (error) {
