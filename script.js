@@ -508,10 +508,11 @@ async function populateCurrentGroupDropdown() {
       console.error("❌ Fehler beim Laden der aktuellen Gruppen:", err);
     }
   });
+
 }
 
 
-});
+
 // LOGIN HANDLER
 const loginForm = document.getElementById("loginForm");
 if (loginForm) {
