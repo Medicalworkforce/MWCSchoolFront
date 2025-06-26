@@ -493,7 +493,7 @@ async function populateCurrentGroupDropdown() {
       const seenTitles = new Set(); // 🔍 Pour filtrer les doublons
 
       groups.forEach(g => {
-        if (g.Title.startsWith(Niveau ${niveau}) && !seenTitles.has(g.Title)) {
+        if (g.Title.startsWith(`Niveau ${niveau}`) && !seenTitles.has(g.Title)) {
           seenTitles.add(g.Title); // ✅ Marque comme vu
           const opt = document.createElement("option");
           opt.value = g.Title;
