@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         showNotification("✅ Daten erfolgreich gespeichert!");
         setTimeout(() => {
-          window.location.href = "Überprüfung.html";
+          window.location.href = "menu.html";
         }, 1500);
 
       } catch (error) {
@@ -367,8 +367,7 @@ async function handleReviewSubmission(redirectTo) {
   let hasChanges = false;
 
   for (const [key, value] of formData.entries()) {
-    // Ignorer les champs vides (""), car SharePoint les rejette
-    if (initialData[key] !== value && value !== "") {
+    if (initialData[key] !== value) {
       updatedData[key] = value;
       hasChanges = true;
     }
@@ -380,26 +379,25 @@ async function handleReviewSubmission(redirectTo) {
     return;
   }
 
-  console.log("📤 Données envoyées au PATCH :", updatedData);
+  const patchResponse = await fetch(${API_BASE}/update/${candidateId}, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updatedData),
+  });
 
-  try {
-    const patchResponse = await fetch(`${API_BASE}/update/${candidateId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedData),
-    });
-
-    if (patchResponse.ok) {
-      window.location.href = redirectTo;
-    } else {
-      alert("❌ Fehler beim Speichern.");
-    }
-  } catch (err) {
-    console.error("❌ Erreur lors de la mise à jour :", err);
-    alert("Erreur de connexion au serveur.");
+  if (patchResponse.ok) {
+    
+    window.location.href = redirectTo;
+  } else {
+    alert("❌ Fehler beim Speichern.");
   }
 }
-
+      } catch (err) {
+        console.error("❌ Fehler beim Laden der Daten:", err);
+        alert("Fehler beim Laden der Daten.");
+      }
+    })();
+  }
 
 
   // ----- Menu Animation -----
