@@ -298,12 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const niveauField = document.getElementById("Sousniveau");
 const unterniveauField = document.getElementById("SousNiveau0");
 
-const unterNiveaus = {
-  A1: ["A 1.1", "A 1.2"],
-  A2: ["A 2.1", "A 2.2"],
-  B1: ["B 1.1", "B 1.2"],
-  B2: ["B 2.1", "B 2.2"]
-};
+
 
 if (niveauField && unterniveauField) {
   niveauField.addEventListener("change", () => {
@@ -511,15 +506,7 @@ async function populateCurrentGroupDropdown() {
     step2Form.addEventListener("submit", handleStep2);
   }
 
-  function setupSublevelFilter() {
-    const niveau = document.getElementById("niveau");
-    const sublevel = document.getElementById("sublevel");
-    const options = {
-      A1: ["A 1.1", "A 1.2"],
-      A2: ["A 2.1", "A 2.2"],
-      B1: ["B 1.1", "B 1.2"],
-      B2: ["B 2.1", "B 2.2"]
-    };
+  
     if (niveau && sublevel) {
       niveau.addEventListener("change", () => {
         sublevel.innerHTML = '<option value="" disabled selected>Bitte wählen...</option>';
