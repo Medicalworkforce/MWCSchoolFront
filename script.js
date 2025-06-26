@@ -472,41 +472,88 @@ async function handleReviewSubmission(redirectTo) {
       });
     });
   }
+  
+async function populateCurrentGroupDropdown() {
+    const niveauField = document.getElementById("niveau");
+    const groupDropdown = document.getElementById("currentGroup");
 
+    if (!niveauField || !groupDropdown) return;
 
-  async function populateCurrentGroupDropdown() {
-  const niveauField = document.getElementById("niveau");
-  const groupDropdown = document.getElementById("currentGroup");
+    niveauField.addEventListener("change", async () => {
+      const niveau = niveauField.value;
+      groupDropdown.innerHTML = '<option value="">Bitte wählen...</option>';
 
-  if (!niveauField || !groupDropdown) return;
+      if (!niveau) return;
 
-  niveauField.addEventListener("change", async () => {
-    const niveau = niveauField.value;
-    groupDropdown.innerHTML = '<option value="">Bitte wählen...</option>';
+      try {
+        const response = await fetch(`${API_BASE}/groupes`);
+        const groups = await response.json();
 
-    if (!niveau) return;
+        groups.forEach(g => {
+          if (g.Title.startsWith(`Niveau ${niveau}`)) {
+            const opt = document.createElement("option");
+            opt.value = g.Title;
+            opt.textContent = g.Title;
+            groupDropdown.appendChild(opt);
+          }
+        });
+      } catch (err) {
+        console.error("❌ Fehler beim Laden der aktuellen Gruppen:", err);
+      }
+    });
+  }
+
+  const step2Form = document.getElementById("step2Form");
+  if (step2Form) {
+    populateGroups();
+    setupSublevelFilter();
+    populateCurrentGroupDropdown();
+    step2Form.addEventListener("submit", handleStep2);
+  }
+
+  function setupSublevelFilter() {
+    const niveau = document.getElementById("niveau");
+    const sublevel = document.getElementById("sublevel");
+    const options = {
+      A1: ["A 1.1", "A 1.2"],
+      A2: ["A 2.1", "A 2.2"],
+      B1: ["B 1.1", "B 1.2"],
+      B2: ["B 2.1", "B 2.2"]
+    };
+    if (niveau && sublevel) {
+      niveau.addEventListener("change", () => {
+        sublevel.innerHTML = '<option value="" disabled selected>Bitte wählen...</option>';
+        options[niveau.value]?.forEach(level => {
+          const opt = document.createElement("option");
+          opt.value = level;
+          opt.textContent = level;
+          sublevel.appendChild(opt);
+        });
+      });
+    }
+  }
+
+  async function handleStep2(e) {
+    e.preventDefault();
+    const id = localStorage.getItem("candidateId");
+    const formData = Object.fromEntries(new FormData(e.target));
 
     try {
-      const response = await fetch(`${API_BASE}/groupes`);
-      const groups = await response.json();
-
-      groups.forEach(g => {
-        if (g.Title.startsWith(`Niveau ${niveau}`)) {
-          const opt = document.createElement("option");
-          opt.value = g.Title;
-          opt.textContent = g.Title;
-          groupDropdown.appendChild(opt);
-        }
+      const response = await fetch(`${API_BASE}/update/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
-    } catch (err) {
-      console.error("❌ Fehler beim Laden der aktuellen Gruppen:", err);
+
+      if (!response.ok) throw new Error(await response.text());
+
+      window.location.href = "step3.html";
+    } catch (error) {
+      console.error("❌ Erreur mise à jour Step 2:", error);
+      alert("Erreur lors de l’enregistrement des données (étape 2)");
     }
-  });
-}
+  }
 
-
-
-  
 });
 // LOGIN HANDLER
 const loginForm = document.getElementById("loginForm");
