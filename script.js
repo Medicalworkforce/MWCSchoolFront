@@ -367,7 +367,8 @@ async function handleReviewSubmission(redirectTo) {
   let hasChanges = false;
 
   for (const [key, value] of formData.entries()) {
-    if (initialData[key] !== value) {
+    // Ignorer les champs vides (""), car SharePoint les rejette
+    if (initialData[key] !== value && value !== "") {
       updatedData[key] = value;
       hasChanges = true;
     }
@@ -379,6 +380,8 @@ async function handleReviewSubmission(redirectTo) {
     return;
   }
 
+  console.log("📤 Données envoyées au PATCH :", updatedData);
+
   const patchResponse = await fetch(`${API_BASE}/update/${candidateId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
@@ -386,18 +389,12 @@ async function handleReviewSubmission(redirectTo) {
   });
 
   if (patchResponse.ok) {
-    
     window.location.href = redirectTo;
   } else {
     alert("❌ Fehler beim Speichern.");
   }
 }
-      } catch (err) {
-        console.error("❌ Fehler beim Laden der Daten:", err);
-        alert("Fehler beim Laden der Daten.");
-      }
-    })();
-  }
+
 
   // ----- Menu Animation -----
   const menuButtons = document.querySelectorAll(".menu-button");
