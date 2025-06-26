@@ -490,8 +490,11 @@ async function populateCurrentGroupDropdown() {
       const response = await fetch(`${API_BASE}/groupes`);
       const groups = await response.json();
 
+      const seenTitles = new Set(); // 🔍 Pour filtrer les doublons
+
       groups.forEach(g => {
-        if (g.Title.startsWith(`Niveau ${niveau}`)) {
+        if (g.Title.startsWith(`Niveau ${niveau}`) && !seenTitles.has(g.Title)) {
+          seenTitles.add(g.Title); // ✅ Marque comme vu
           const opt = document.createElement("option");
           opt.value = g.Title;
           opt.textContent = g.Title;
@@ -503,6 +506,7 @@ async function populateCurrentGroupDropdown() {
     }
   });
 }
+
 
 });
 // LOGIN HANDLER
