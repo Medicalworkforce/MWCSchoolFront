@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadLehrerList() {
     try {
-      const response = await fetch(`${API_BASE}/lehrer`);
+      const response = await fetch(${API_BASE}/lehrer);
       const lehrer = await response.json();
       if (Array.isArray(lehrer) && profSelect) {
         profSelect.innerHTML = '<option value="">Bitte wählen</option>';
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const month = String(date.getMonth() + 1).padStart(2, '0');
       const year = date.getFullYear();
       const cleanedUnterniveau = unterniveau.replace(/\s/g, "");
-      const name = `Niveau ${cleanedUnterniveau} ${prof} Session ${month}/${year}`;
+      const name = Niveau ${cleanedUnterniveau} ${prof} Session ${month}/${year};
       if (titleInput) titleInput.value = name;
     }
   }
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       try {
-        const response = await fetch(`${API_BASE}/add-group`, {
+        const response = await fetch(${API_BASE}/add-group, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const phone = phoneNumber.value.trim();
 
       try {
-        const response = await fetch(`${API_BASE}/api/teachers`, {
+        const response = await fetch(${API_BASE}/api/teachers, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, phone })
@@ -191,10 +191,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const formData = Object.fromEntries(new FormData(step1Form));
-      formData["vollst_x00e4_ndigerName"] = `${formData["Title"]} ${formData["Nachname"]}`;
+      formData["vollst_x00e4_ndigerName"] = ${formData["Title"]} ${formData["Nachname"]};
 
       try {
-        const response = await fetch(`${API_BASE}/submit`, {
+        const response = await fetch(${API_BASE}/submit, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const formData = Object.fromEntries(new FormData(e.target));
 
     try {
-      const response = await fetch(`${API_BASE}/update/${id}`, {
+      const response = await fetch(${API_BASE}/update/${id}, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -251,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const formData = Object.fromEntries(new FormData(e.target));
 
       try {
-        const response = await fetch(`${API_BASE}/update/${id}`, {
+        const response = await fetch(${API_BASE}/update/${id}, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         showNotification("✅ Daten erfolgreich gespeichert!");
         setTimeout(() => {
-          window.location.href = "Überprüfung.html";
+          window.location.href = "menu.html";
         }, 1500);
 
       } catch (error) {
@@ -279,12 +279,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     (async () => {
       try {
-        const response = await fetch(`${API_BASE}/get/${candidateId}`);
+        const response = await fetch(${API_BASE}/get/${candidateId});
         const data = await response.json();
         const initialData = { ...data };
 
         for (const [key, value] of Object.entries(data)) {
-          const input = reviewForm.querySelector(`[name="${key}"]`);
+          const input = reviewForm.querySelector([name="${key}"]);
           if (input) {
             if (input.type === "date" && value) {
               input.value = new Date(value).toISOString().split("T")[0];
@@ -368,11 +368,8 @@ async function handleReviewSubmission(redirectTo) {
   let hasChanges = false;
 
   for (const [key, value] of formData.entries()) {
-    const trimmed = value.trim?.() ?? value;
-
-    // ✅ Ne pas envoyer si valeur vide OU identique à l’original
-    if (trimmed !== "" && initialData[key] !== trimmed) {
-      updatedData[key] = trimmed;
+    if (initialData[key] !== value) {
+      updatedData[key] = value;
       hasChanges = true;
     }
   }
@@ -383,25 +380,25 @@ async function handleReviewSubmission(redirectTo) {
     return;
   }
 
-  try {
-    const patchResponse = await fetch(`${API_BASE}/update/${candidateId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedData),
-    });
+  const patchResponse = await fetch(${API_BASE}/update/${candidateId}, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updatedData),
+  });
 
-    if (patchResponse.ok) {
-      window.location.href = redirectTo;
-    } else {
-      const errorText = await patchResponse.text();
-      console.error("❌ Fehler beim Speichern:", errorText);
-      alert("❌ Fehler beim Speichern.");
-    }
-  } catch (err) {
-    console.error("❌ PATCH Netzwerkfehler:", err);
-    alert("Netzwerkfehler oder ungültige Daten.");
+  if (patchResponse.ok) {
+    
+    window.location.href = redirectTo;
+  } else {
+    alert("❌ Fehler beim Speichern.");
   }
 }
+      } catch (err) {
+        console.error("❌ Fehler beim Laden der Daten:", err);
+        alert("Fehler beim Laden der Daten.");
+      }
+    })();
+  }
 
 
   // ----- Menu Animation -----
@@ -459,7 +456,7 @@ async function handleReviewSubmission(redirectTo) {
       ["groupB22", "Niveau B2.2"]
     ];
 
-    const response = await fetch(`${API_BASE}/groupes`);
+    const response = await fetch(${API_BASE}/groupes);
     const groups = await response.json();
 
     groupIds.forEach(([selectId, prefix]) => {
@@ -490,13 +487,13 @@ async function populateCurrentGroupDropdown() {
     if (!niveau) return;
 
     try {
-      const response = await fetch(`${API_BASE}/groupes`);
+      const response = await fetch(${API_BASE}/groupes);
       const groups = await response.json();
 
       const seenTitles = new Set(); // 🔍 Pour filtrer les doublons
 
       groups.forEach(g => {
-        if (g.Title.startsWith(`Niveau ${niveau}`) && !seenTitles.has(g.Title)) {
+        if (g.Title.startsWith(Niveau ${niveau}) && !seenTitles.has(g.Title)) {
           seenTitles.add(g.Title); // ✅ Marque comme vu
           const opt = document.createElement("option");
           opt.value = g.Title;
@@ -508,11 +505,10 @@ async function populateCurrentGroupDropdown() {
       console.error("❌ Fehler beim Laden der aktuellen Gruppen:", err);
     }
   });
-
 }
 
 
-
+});
 // LOGIN HANDLER
 const loginForm = document.getElementById("loginForm");
 if (loginForm) {
@@ -523,7 +519,7 @@ if (loginForm) {
     const errorMessage = document.getElementById("loginError");
 
     try {
-      const response = await fetch(`${API_BASE}/api/login`, {
+      const response = await fetch(${API_BASE}/api/login, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ login, password })
@@ -543,4 +539,3 @@ if (loginForm) {
     }
   });
 } 
-});
