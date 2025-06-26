@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const month = String(date.getMonth() + 1).padStart(2, '0');
       const year = date.getFullYear();
       const cleanedUnterniveau = unterniveau.replace(/\s/g, "");
-      const name = Niveau ${cleanedUnterniveau} ${prof} Session ${month}/${year};
+      const name = `Niveau ${cleanedUnterniveau} ${prof} Session ${month}/${year}`;
       if (titleInput) titleInput.value = name;
     }
   }
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const formData = Object.fromEntries(new FormData(step1Form));
-      formData["vollst_x00e4_ndigerName"] = ${formData["Title"]} ${formData["Nachname"]};
+      formData["vollst_x00e4_ndigerName"] = `${formData["Title"]} ${formData["Nachname"]}`;
 
       try {
         const response = await fetch(`${API_BASE}/submit`, {
@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const initialData = { ...data };
 
         for (const [key, value] of Object.entries(data)) {
-          const input = reviewForm.querySelector([name="${key}"]);
+          const input = reviewForm.querySelector(`[name="${key}"]`);
           if (input) {
             if (input.type === "date" && value) {
               input.value = new Date(value).toISOString().split("T")[0];
