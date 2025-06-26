@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ----- Step 2 -----
-  const step2Form = document.getElementById("step2Form");
+  //const step2Form = document.getElementById("step2Form");
   if (step2Form) {
     populateGroups();
     setupSublevelFilter();
