@@ -1,288 +1,541 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <title>Überprüfung der Angaben</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-  <link rel="icon" type="image/png" href="MWC.png">
-</head>
-<body style="background-color: #f0f2f5; margin: 0; padding: 0;">
-  <div class="container">
-    <div class="sidebar">
-      <div class="sidebar-header">
-        <img src="MWC.png" alt="Logo" class="logo" style="margin-left: 80px;"><br/><br/>
-        <h2 class="sidebar-title">Kandidatenformular</h2>
-      </div>
-      <ul class="milestone">
-        <li class="active">Persönliche Angaben</li>
-        <li class="active">Sprachliche Angaben</li>
-        <li class="active">Vermittlung</li>
-        <li class="active">Überprüfung</li>
-      </ul>
-    </div>
+const API_BASE = "https://mwcschoolback-production-4733.up.railway.app";
 
-<div class="form-wrapper">
-  <form id="reviewForm" class="form-grid three-columns">
-    <!-- Tous les champs combinés des 3 formulare, maintenant avec form-group -->
 
-    <!-- step1.html -->
-    <div class="form-group">
-      <label for="Title">Vorname</label>
-      <input type="text" id="Title" name="Title">
-    </div>
-    <div class="form-group">
-      <label for="Nachname">Nachname</label>
-      <input type="text" id="Nachname" name="Nachname">
-    </div>
-    <div class="form-group">
-      <label for="CIN">Personalausweisnummer</label>
-      <input type="number" id="CIN" name="CIN">
-    </div>
-    <div class="form-group">
-      <label for="email">E-Mail</label>
-      <input type="email" id="email" name="E_x002d_Mail_x002d_Adresse">
-    </div>
-    <div class="form-group">
-      <label for="Telefonnummer">Telefonnummer</label>
-      <input type="tel" id="Telefonnummer" name="Telefonnummer">
-    </div>
-    <div class="form-group">
-      <label for="Alter">Alter</label>
-      <input type="number" id="Alter" name="Alter">
-    </div>
-    <div class="form-group">
-      <label for="Familienstand">Familienstand</label>
-      <select id="Familienstand" name="Familienstand">
-        <option value="">Bitte wählen</option>
-        <option value="Ledig">Ledig</option>
-        <option value="Verheiratet">Verheiratet</option>
-        <option value="Geschieden">Geschieden</option>
-        <option value="Verwitwet">Verwitwet</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="Kinder">Kinder</label>
-      <select id="Kinder" name="Kinder">
-        <option value="">Bitte wählen</option>
-        <option value="Ja">Ja</option>
-        <option value="Nein">Nein</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="numChildren">Anzahl der Kinder</label>
-      <input type="number" id="numChildren" name="AnzahlderKinder" min="0"  />
-    </div>
-    <div class="form-group">
-      <label for="Berufsbezeichnung">Berufsbezeichnung</label>
-      <input type="text" id="Berufsbezeichnung" name="Berufsbezeichnung">
-    </div>
-    <div class="form-group">
-      <label for="AnzahlderBerufsjahre">Berufserfahrung</label>
-      <select id="AnzahlderBerufsjahre" name="AnzahlderBerufsjahre">
-        <option value="">Bitte wählen</option>
-        <option value="Keine">Keine</option>
-        <option value="1 bis 6 Monate">1 bis 6 Monate</option>
-        <option value="7 bis 11 Monate">7 bis 11 Monate</option>
-        <option value="1 Jahr">1 Jahr</option>
-        <option value="2 Jahre">2 Jahre</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="Schule">Schule</label>
-      <select id="Schule" name="Schule">
-        <option value="">Bitte wählen</option>
-        <option value="Tunis">Tunis</option>
-        <option value="Sousse">Sousse</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="Eintrittsdatum">Eintrittsdatum</label>
-      <input type="date" id="Eintrittsdatum" name="Eintrittsdatum_des_Kandidaten_in">
-    </div>
-    <div class="form-group">
-      <label for="Verhalten">Verhalten</label>
-      <input type="text" id="Verhalten" name="Verhalten_des_Kandidaten">
-    </div>
-    <div class="form-group">
-      <label for="Zugehörigkeit">Zugehörigkeit</label>
-      <select id="Zugehörigkeit" name="Zugeh_x00f6_rigkeit">
-        <option value="">Bitte wählen</option>
-        <option value="Intern">Intern</option>
-        <option value="Extern">Extern</option>
-      </select>
-    </div>
+document.addEventListener("DOMContentLoaded", () => {
+  // ----- Groupe Form Logic -----
+  const groupForm = document.getElementById("groupForm");
+  const niveauSelect = document.getElementById("Sousniveau");
+  const sousNiveauSelect = document.getElementById("SousNiveau0");
+  const startDateInput = document.getElementById("Startdate");
+  const endDateInput = document.getElementById("Enddate");
+  const titleInput = document.getElementById("Title");
+  const profSelect = document.getElementById("Prof");
 
-    <!-- step2.html -->
-    <div class="form-group">
-      <label for="Niveaux">Sprachniveau</label>
-      <select id="Niveaux" name="Niveaux">
-        <option value="">Bitte wählen</option>
-        <option value="A1">A1</option>
-        <option value="A2">A2</option>
-        <option value="B1">B1</option>
-        <option value="B2">B2</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="Unterniveau">Unterniveau</label>
-      <select id="Unterniveau" name="Unterniveau"></select>
-    </div>
-    <div class="form-group">
-      <label for="Testdatum_B1">B1 Testdatum</label>
-      <input type="date" id="Testdatum_B1" name="Testdatum_B1">
-    </div>
-    <div class="form-group">
-      <label for="Testergebnis_B1">B1 Ergebnis</label>
-      <input type="number" id="Testergebnis_B1" name="Testergebnis_B1">
-    </div>
-    <div class="form-group">
-      <label for="Anzahl_Stunden_A1_1">Gruppe A1.1</label>
-      <input type="text" id="Anzahl_Stunden_A1_1" name="Anzahl_Stunden_A1_x002e_1">
-    </div>
-    <div class="form-group">
-      <label for="Anzahl_Stunden_A1_2">Gruppe A1.2</label>
-      <input type="text" id="Anzahl_Stunden_A1_2" name="Anzahl_Stunden_A1_x002e_2">
-    </div>
-    <div class="form-group">
-      <label for="Anzahl_Stunden_A2_1">Gruppe A2.1</label>
-      <input type="text" id="Anzahl_Stunden_A2_1" name="Anzahl_Stunden_A2_x002e_1">
-    </div>
-    <div class="form-group">
-      <label for="Anzahl_Stunden_A2_2">Gruppe A2.2</label>
-      <input type="text" id="Anzahl_Stunden_A2_2" name="Anzahl_Stunden_A2_x002e_2">
-    </div>
-    <div class="form-group">
-      <label for="Anzahl_Stunden_B1_1">Gruppe B1.1</label>
-      <input type="text" id="Anzahl_Stunden_B1_1" name="Anzahl_Stunden_B1_x002e_1">
-    </div>
-    <div class="form-group">
-      <label for="Anzahl_Stunden_B1_2">Gruppe B1.2</label>
-      <input type="text" id="Anzahl_Stunden_B1_2" name="Anzahl_Stunden_B1_x002e_2">
-    </div>
-    <div class="form-group">
-      <label for="Anzahl_Stunden_B2_1">Gruppe B2.1</label>
-      <input type="text" id="Anzahl_Stunden_B2_1" name="Anzahl_Stunden_B2_x002e_1">
-    </div>
-    <div class="form-group">
-      <label for="Anzahl_Stunden_B2_2">Gruppe B2.2</label>
-      <input type="text" id="Anzahl_Stunden_B2_2" name="Anzahl_Stunden_B2_x002e_2">
-    </div>
+  const unterNiveaus = {
+    A1: ["A 1.1", "A 1.2"],
+    A2: ["A 2.1", "A 2.2"],
+    B1: ["B 1.1", "B 1.2"],
+    B2: ["B 2.1", "B 2.2"]
+  };
 
-    <!-- step3.html -->
-    <div class="form-group">
-      <label for="Datum_des_Vorgesprächs">Vorgespräch Datum</label>
-      <input type="date" id="Datum_des_Vorgesprächs" name="Datum_des_Vorgespr_x00e4_chs">
-    </div>
-    <div class="form-group">
-      <label for="Ergebnis_des_Vorgesprächs">Vorgespräch Ergebnis</label>
-      <input type="text" id="Ergebnis_des_Vorgesprächs" name="Ergebnis_des_Vorgespr_x00e4_chs">
-    </div>
-    <div class="form-group">
-      <label for="Bemerkung">Bemerkung</label>
-      <input type="text" id="Bemerkung" name="Bemerkung">
-    </div>
-    <div class="form-group">
-      <label for="Vorstellungsgespräch">Vorstellungsgespräch</label>
-      <select id="Vorstellungsgespräch" name="Vorstellungsgespr_x00e4_ch">
-        <option value="">Bitte wählen</option>
-        <option value="Ja">Ja</option>
-        <option value="Nein">Nein</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="Datum_Vorstellungsgespräch">Vorstellungsgespräch Datum</label>
-      <input type="date" id="Datum_Vorstellungsgespräch" name="Datum_Vorstellungsgespr_x00e4_ch">
-    </div>
-    <div class="form-group">
-      <label for="Defizitbescheid">Defizitbescheid</label>
-      <select id="Defizitbescheid" name="Defizitbescheid">
-        <option value="">Bitte wählen</option>
-        <option value="Ja">Ja</option>
-        <option value="Nein">Nein</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="Arbeitgeber">Arbeitgeber</label>
-      <input type="text" id="Arbeitgeber" name="Arbeitgeber">
-    </div>
-    <div class="form-group">
-      <label for="Bundesland">Bundesland</label>
-      <input type="text" id="Bundesland" name="Bundesland">
-    </div>
-    <div class="form-group">
-      <label for="Aktuelle_Phase">Aktuelle Phase</label>
-      <select id="Aktuelle_Phase" name="Aktuelle_Phase">
-        <option value="">Bitte wählen</option>
-        <option value="Start/Kandidaten">Start/Kandidaten</option>
-        <option value="Deutschkurse">Deutschkurse</option>
-        <option value="Visum Antrag">Visum Antrag</option>
-        <option value="Einreise nach Deutschland, Arbeitsbeginn">Einreise</option>
-        <option value="Anerkennungsverfahren und B2 Prüfung">Anerkennung</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="Reisedatum">Reisedatum</label>
-      <input type="date" id="Reisedatum" name="Reisedatum">
-    </div>
-    <div class="form-group">
-      <label for="Starte_Anerkennungsverfahren">Anerkennungsbeginn</label>
-      <input type="date" id="Starte_Anerkennungsverfahren" name="Starte_Anerkennungsverfahren">
-    </div>
-    <div class="form-group">
-      <label for="Vermittlungsstand">Vermittlungsstand</label>
-      <select id="Vermittlungsstand" name="Vermittlungsstand">
-        <option value="">Bitte wählen</option>
-        <option value="In Vermittlung">In Vermittlung</option>
-        <option value="Schon vermittelt">Schon vermittelt</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="Vorabzustimmung">Vorabzustimmung</label>
-      <select id="Vorabzustimmung" name="Vorabzustimmung">
-        <option value="">Bitte wählen</option>
-        <option value="Ja">Ja</option>
-        <option value="Nein">Nein</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="Visum">Visum</label>
-      <select id="Visum" name="Visum">
-        <option value="">Bitte wählen</option>
-        <option value="Ja">Ja</option>
-        <option value="Nein">Nein</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="Dokumentenübersetzung">Dokumentenübersetzung</label>
-      <select id="Dokumentenübersetzung" name="Dokumenten_x00fc_bersetzung">
-        <option value="">Bitte wählen</option>
-        <option value="Ja">Ja</option>
-        <option value="Nein">Nein</option>
-      </select>
-    </div>
+  if (titleInput) {
+    titleInput.readOnly = true;
+    titleInput.style.backgroundColor = "#f0f0f0";
+    titleInput.style.cursor = "not-allowed";
+  }
+
+  if (niveauSelect && sousNiveauSelect) {
+    niveauSelect.addEventListener("change", () => {
+      const selected = niveauSelect.value;
+      sousNiveauSelect.innerHTML = '<option value="">Bitte wählen</option>';
+      if (unterNiveaus[selected]) {
+        unterNiveaus[selected].forEach(value => {
+          const option = document.createElement("option");
+          option.value = value;
+          option.textContent = value;
+          sousNiveauSelect.appendChild(option);
+        });
+      }
+      updateGroupName();
+    });
+  }
+
+  if (sousNiveauSelect) sousNiveauSelect.addEventListener("change", updateGroupName);
+  if (startDateInput) startDateInput.addEventListener("change", updateGroupName);
+  if (profSelect) profSelect.addEventListener("change", updateGroupName);
+
+  async function loadLehrerList() {
+    try {
+      const response = await fetch(${API_BASE}/lehrer);
+      const lehrer = await response.json();
+      if (Array.isArray(lehrer) && profSelect) {
+        profSelect.innerHTML = '<option value="">Bitte wählen</option>';
+        // Supprimer les doublons par nom
+        const uniqueNames = new Set();
+        lehrer.forEach(prof => {
+          if (!uniqueNames.has(prof.name)) {
+            uniqueNames.add(prof.name);
+            const option = document.createElement("option");
+            option.value = prof.id;
+            option.textContent = prof.name;
+            profSelect.appendChild(option);
+  }
+});
+
+      }
+    } catch (err) {
+      console.error("❌ Fehler beim Laden der Lehrer:", err);
+    }
+  }
+  loadLehrerList();
+
+  function updateGroupName() {
+    const niveau = niveauSelect?.value;
+    const unterniveau = sousNiveauSelect?.value;
+    const prof = profSelect?.options[profSelect.selectedIndex]?.text || "";
+    const startDate = startDateInput?.value;
+
+    if (niveau && unterniveau && prof && startDate) {
+      const date = new Date(startDate);
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      const cleanedUnterniveau = unterniveau.replace(/\s/g, "");
+      const name = Niveau ${cleanedUnterniveau} ${prof} Session ${month}/${year};
+      if (titleInput) titleInput.value = name;
+    }
+  }
+
+  if (groupForm) {
+    groupForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const start = new Date(startDateInput.value);
+      const end = new Date(endDateInput.value);
+      if (start >= end) {
+        alert("❌ Das Enddatum muss nach dem Startdatum liegen.");
+        return;
+      }
+
+      const data = {
+        Title: titleInput.value,
+        Sousniveau: niveauSelect.value,
+        SousNiveau0: sousNiveauSelect.value,
+        Prof: profSelect.options[profSelect.selectedIndex].text,
+        ProfId: profSelect.value,
+        Startdate: startDateInput.value,
+        Enddate: endDateInput.value
+      };
+
+      try {
+        const response = await fetch(${API_BASE}/add-group, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (response.ok) {
+          showNotification("✅ Gruppe erfolgreich gespeichert!");
+          groupForm.reset();
+        } else {
+          alert("❌ Fehler beim Speichern.");
+        }
+      } catch (error) {
+        console.error("Fehler beim Senden:", error);
+        alert("❌ Netzwerkfehler oder Server nicht erreichbar.");
+      }
+    });
+  }
+
+  // ----- Lehrer Form -----
+  const teacherForm = document.getElementById("teacherForm");
+  if (teacherForm) {
+    const teacherName = document.getElementById("teacherName");
+    const phoneNumber = document.getElementById("phoneNumber");
+
+    teacherForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = teacherName.value.trim();
+      const phone = phoneNumber.value.trim();
+
+      try {
+        const response = await fetch(${API_BASE}/api/teachers, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, phone })
+        });
+        if (response.ok) {
+          showNotification("✅ Professeur enregistré avec succès.");
+          teacherForm.reset();
+        } else {
+          const error = await response.text();
+          showNotification("❌ Erreur : " + error);
+        }
+      } catch (err) {
+        console.error("❌ Erreur réseau:", err);
+        showNotification("❌ Erreur lors de l'enregistrement.");
+      }
+    });
+  }
+
+   // ----- Formulaire Step 1 (Candidat) -----
+  const step1Form = document.getElementById("step1Form");
+  if (step1Form) {
+    const kinderField = document.getElementById("children");
+    const anzahlField = document.getElementById("numChildren");
+
+    // Initialisation du champ enfants
+    if (anzahlField) {
+      anzahlField.readOnly = true;
+      anzahlField.value = "0";
+      anzahlField.style.backgroundColor = "#f0f0f0";
+    }
+
+    if (kinderField && anzahlField) {
+      kinderField.addEventListener("change", () => {
+        if (kinderField.value === "Ja") {
+          anzahlField.readOnly = false;
+          anzahlField.style.backgroundColor = "#ffffff";
+          anzahlField.value = "";
+        } else {
+          anzahlField.readOnly = true;
+          anzahlField.style.backgroundColor = "#f0f0f0";
+          anzahlField.value = "0";
+        }
+      });
+    }
+
+    step1Form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Sécurité : forcer à 0 si bloqué
+      if (anzahlField && anzahlField.readOnly) {
+        anzahlField.value = "0";
+      }
+
+      const formData = Object.fromEntries(new FormData(step1Form));
+      formData["vollst_x00e4_ndigerName"] = ${formData["Title"]} ${formData["Nachname"]};
+
+      try {
+        const response = await fetch(${API_BASE}/submit, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) throw new Error(await response.text());
+
+        const result = await response.json();
+        localStorage.setItem("candidateId", result.id);
+        window.location.href = "step2.html";
+      } catch (error) {
+        console.error("❌ Erreur:", error);
+        alert("Erreur lors de la création du candidat.");
+      }
+    });
+  }
+
+  // ----- Step 2 -----
+  const step2Form = document.getElementById("step2Form");
+  if (step2Form) {
+    populateGroups();
+    setupSublevelFilter();
+    populateCurrentGroupDropdown();
+    step2Form.addEventListener("submit", handleStep2);
+  }
+
+  async function handleStep2(e) {
+    e.preventDefault();
+    const id = localStorage.getItem("candidateId");
+    const formData = Object.fromEntries(new FormData(e.target));
+
+    try {
+      const response = await fetch(${API_BASE}/update/${id}, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) throw new Error(await response.text());
+
+      window.location.href = "step3.html";
+    } catch (error) {
+      console.error("❌ Erreur mise à jour Step 2:", error);
+      alert("Erreur lors de l’enregistrement des données (étape 2)");
+    }
+  }
+
+  // ----- Step 3 -----
+  const step3Form = document.getElementById("step3Form");
+  if (step3Form) {
+    step3Form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = localStorage.getItem("candidateId");
+      const formData = Object.fromEntries(new FormData(e.target));
+
+      try {
+        const response = await fetch(${API_BASE}/update/${id}, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) throw new Error(await response.text());
+
+        showNotification("✅ Daten erfolgreich gespeichert!");
+        setTimeout(() => {
+          window.location.href = "menu.html";
+        }, 1500);
+
+      } catch (error) {
+        console.error("❌ Erreur mise à jour Step 3:", error);
+        alert("Erreur lors de l’enregistrement des données (étape 3)");
+      }
+    });
+  }
+
+  // ----- Review Form (Überprüfung.html) -----
+  const reviewForm = document.getElementById("reviewForm");
+  if (reviewForm) {
+    const candidateId = localStorage.getItem("candidateId");
+    if (!candidateId) return alert("❌ Keine Kandidaten-ID gefunden.");
+
+    (async () => {
+      try {
+        const response = await fetch(${API_BASE}/get/${candidateId});
+        const data = await response.json();
+        const initialData = { ...data };
+
+        for (const [key, value] of Object.entries(data)) {
+          const input = reviewForm.querySelector([name="${key}"]);
+          if (input) {
+            if (input.type === "date" && value) {
+              input.value = new Date(value).toISOString().split("T")[0];
+            } else {
+              input.value = value ?? "";
+            }
+          }
+        }
+        
+        // 🎯 Initialiser et préremplir SousNiveau0 dynamiquement en fonction de Sousniveau
+const niveauField = document.getElementById("Sousniveau");
+const unterniveauField = document.getElementById("SousNiveau0");
+
+const unterNiveaus = {
+  A1: ["A 1.1", "A 1.2"],
+  A2: ["A 2.1", "A 2.2"],
+  B1: ["B 1.1", "B 1.2"],
+  B2: ["B 2.1", "B 2.2"]
+};
+
+if (niveauField && unterniveauField) {
+  niveauField.addEventListener("change", () => {
+    unterniveauField.innerHTML = '<option value="">Bitte wählen</option>';
+    unterNiveaus[niveauField.value]?.forEach(level => {
+      const opt = document.createElement("option");
+      opt.value = level;
+      opt.textContent = level;
+      unterniveauField.appendChild(opt);
+    });
+  });
+
+  // Générer les options et appliquer la valeur existante
+  niveauField.dispatchEvent(new Event('change'));
+
+  setTimeout(() => {
+    unterniveauField.value = data["SousNiveau0"] || "";
+  }, 100);
+}
+
+
+        // Gestion du comportement du champ "AnzahlderKinder" dans Überprüfung.html
+// Ajouter ce bloc à la fin du remplissage automatique :
+const kinderField = document.getElementById("children");
+const anzahlField = document.getElementById("numChildren");
+
+function toggleNumChildrenField() {
+  if (!kinderField || !anzahlField) return;
+  if (kinderField.value === "Ja") {
+    anzahlField.readOnly = false;
+    anzahlField.style.backgroundColor = "#ffffff";
+  } else {
+    anzahlField.readOnly = true;
+    anzahlField.style.backgroundColor = "#f0f0f0";
+    anzahlField.value = "0";
+  }
+}
+
+if (kinderField && anzahlField) {
+  toggleNumChildrenField(); // appel immédiat après remplissage
+  kinderField.addEventListener("change", toggleNumChildrenField); // écoute changement
+}
+const saveAndAddBtn = document.getElementById("saveAndAdd");
+const saveAndExitBtn = document.getElementById("saveAndExit");
+
+if (saveAndAddBtn && saveAndExitBtn) {
+  saveAndAddBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    await handleReviewSubmission("step1.html");
+  });
+
+  saveAndExitBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    await handleReviewSubmission("menu.html");
+  });
+}
+
+
+async function handleReviewSubmission(redirectTo) {
+  const formData = new FormData(reviewForm);
+  const updatedData = {};
+  let hasChanges = false;
+
+  for (const [key, value] of formData.entries()) {
+    if (initialData[key] !== value) {
+      updatedData[key] = value;
+      hasChanges = true;
+    }
+  }
+
+  if (!hasChanges) {
+    alert("ℹ️ Keine Änderungen erkannt.");
+    window.location.href = redirectTo;
+    return;
+  }
+
+  const patchResponse = await fetch(${API_BASE}/update/${candidateId}, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updatedData),
+  });
+
+  if (patchResponse.ok) {
     
-        <label for="vertragUnterschrieben">Vertrag unterschrieben
-<select id="vertragUnterschrieben" name="Vertragunterschrieben">
-  <option value="Ja">Ja</option>
-  <option value="Nein">Nein</option>
-</select></label>
+    window.location.href = redirectTo;
+  } else {
+    alert("❌ Fehler beim Speichern.");
+  }
+}
+      } catch (err) {
+        console.error("❌ Fehler beim Laden der Daten:", err);
+        alert("Fehler beim Laden der Daten.");
+      }
+    })();
+  }
 
-<label for="b2TestBestanden">B2-Test bestanden
-<select id="b2TestBestanden" name="B2_x002d_Testbestanden">
-  <option value="Ja">Ja</option>
-  <option value="Nein">Nein</option>
-</select></label>
 
-    <div class="form-group">
-      <button type="button" id="saveAndAdd" name="action" value="addAnother" class="review-button">Speichern & neuer Kandidat</button>
-    </div>
-    <div class="form-group">
-      <button type="button" id="saveAndExit" name="action" value="exit" class="review-button">Speichern & Beenden</button>
-    </div>
-  </form>
-</div>
+  // ----- Menu Animation -----
+  const menuButtons = document.querySelectorAll(".menu-button");
+  menuButtons.forEach((btn, index) => {
+    btn.style.opacity = 0;
+    btn.style.transform = "translateY(20px)";
+    setTimeout(() => {
+      btn.style.transition = "all 0.4s ease";
+      btn.style.opacity = 1;
+      btn.style.transform = "translateY(0)";
+    }, index * 150);
+  });
 
-  </div>
-</body>
-</html>
+  // ----- Helper -----
+  function showNotification(message) {
+    const notification = document.getElementById("notification");
+    if (!notification) return;
+    notification.textContent = message;
+    notification.classList.add("show");
+    setTimeout(() => notification.classList.remove("show"), 5000);
+  }
+
+  function setupSublevelFilter() {
+    const niveau = document.getElementById("niveau");
+    const sublevel = document.getElementById("sublevel");
+    const options = {
+      A1: ["A 1.1", "A 1.2"],
+      A2: ["A 2.1", "A 2.2"],
+      B1: ["B 1.1", "B 1.2"],
+      B2: ["B 2.1", "B 2.2"]
+    };
+    if (niveau && sublevel) {
+      niveau.addEventListener("change", () => {
+        sublevel.innerHTML = '<option value="" disabled selected>Bitte wählen...</option>';
+        options[niveau.value]?.forEach(level => {
+          const opt = document.createElement("option");
+          opt.value = level;
+          opt.textContent = level;
+          sublevel.appendChild(opt);
+        });
+      });
+    }
+  }
+
+  async function populateGroups() {
+    const groupIds = [
+      ["groupA11", "Niveau A1.1"],
+      ["groupA12", "Niveau A1.2"],
+      ["groupA21", "Niveau A2.1"],
+      ["groupA22", "Niveau A2.2"],
+      ["groupB11", "Niveau B1.1"],
+      ["groupB12", "Niveau B1.2"],
+      ["groupB21", "Niveau B2.1"],
+      ["groupB22", "Niveau B2.2"]
+    ];
+
+    const response = await fetch(${API_BASE}/groupes);
+    const groups = await response.json();
+
+    groupIds.forEach(([selectId, prefix]) => {
+      const select = document.getElementById(selectId);
+      if (!select) return;
+      groups.forEach(g => {
+        if (g.Title.startsWith(prefix)) {
+          const opt = document.createElement("option");
+          opt.value = g.Title;
+          opt.textContent = g.Title;
+          select.appendChild(opt);
+        }
+      });
+    });
+  }
+
+
+async function populateCurrentGroupDropdown() {
+  const niveauField = document.getElementById("niveau");
+  const groupDropdown = document.getElementById("currentGroup");
+
+  if (!niveauField || !groupDropdown) return;
+
+  niveauField.addEventListener("change", async () => {
+    const niveau = niveauField.value;
+    groupDropdown.innerHTML = '<option value="">Bitte wählen...</option>';
+
+    if (!niveau) return;
+
+    try {
+      const response = await fetch(${API_BASE}/groupes);
+      const groups = await response.json();
+
+      const seenTitles = new Set(); // 🔍 Pour filtrer les doublons
+
+      groups.forEach(g => {
+        if (g.Title.startsWith(Niveau ${niveau}) && !seenTitles.has(g.Title)) {
+          seenTitles.add(g.Title); // ✅ Marque comme vu
+          const opt = document.createElement("option");
+          opt.value = g.Title;
+          opt.textContent = g.Title;
+          groupDropdown.appendChild(opt);
+        }
+      });
+    } catch (err) {
+      console.error("❌ Fehler beim Laden der aktuellen Gruppen:", err);
+    }
+  });
+}
+
+
+});
+// LOGIN HANDLER
+const loginForm = document.getElementById("loginForm");
+if (loginForm) {
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const login = document.getElementById("login").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const errorMessage = document.getElementById("loginError");
+
+    try {
+      const response = await fetch(${API_BASE}/api/login, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ login, password })
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        errorMessage.textContent = error || "Nom d'utilisateur ou mot de passe incorrect.";
+        return;
+      }
+
+      // Success: redirect
+      window.location.href = "menu.html";
+    } catch (err) {
+      console.error("Login failed:", err);
+      errorMessage.textContent = "Erreur de connexion au serveur.";
+    }
+  });
+} 
