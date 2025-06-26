@@ -379,7 +379,7 @@ async function handleReviewSubmission(redirectTo) {
     return;
   }
 
-  const patchResponse = await fetch(${API_BASE}/update/${candidateId}, {
+  const patchResponse = await fetch(`${API_BASE}/update/${candidateId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updatedData),
