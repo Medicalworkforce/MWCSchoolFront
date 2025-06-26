@@ -217,6 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (step2Form) {
     populateGroups();
     setupSublevelFilter();
+    populateCurrentGroupDropdown();
     step2Form.addEventListener("submit", handleStep2);
   }
 
@@ -471,6 +472,41 @@ async function handleReviewSubmission(redirectTo) {
       });
     });
   }
+
+
+  async function populateCurrentGroupDropdown() {
+  const niveauField = document.getElementById("niveau");
+  const groupDropdown = document.getElementById("currentGroup");
+
+  if (!niveauField || !groupDropdown) return;
+
+  niveauField.addEventListener("change", async () => {
+    const niveau = niveauField.value;
+    groupDropdown.innerHTML = '<option value="">Bitte wählen...</option>';
+
+    if (!niveau) return;
+
+    try {
+      const response = await fetch(`${API_BASE}/groupes`);
+      const groups = await response.json();
+
+      groups.forEach(g => {
+        if (g.Title.startsWith(`Niveau ${niveau}`)) {
+          const opt = document.createElement("option");
+          opt.value = g.Title;
+          opt.textContent = g.Title;
+          groupDropdown.appendChild(opt);
+        }
+      });
+    } catch (err) {
+      console.error("❌ Fehler beim Laden der aktuellen Gruppen:", err);
+    }
+  });
+}
+
+
+
+  
 });
 // LOGIN HANDLER
 const loginForm = document.getElementById("loginForm");
