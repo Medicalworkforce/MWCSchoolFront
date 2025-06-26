@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadLehrerList() {
     try {
-      const response = await fetch(${API_BASE}/lehrer);
+      const response = await fetch(`${API_BASE}/lehrer`);
       const lehrer = await response.json();
       if (Array.isArray(lehrer) && profSelect) {
         profSelect.innerHTML = '<option value="">Bitte wählen</option>';
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       try {
-        const response = await fetch(${API_BASE}/add-group, {
+        const response = await fetch(`${API_BASE}/add-group`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const phone = phoneNumber.value.trim();
 
       try {
-        const response = await fetch(${API_BASE}/api/teachers, {
+        const response = await fetch(`${API_BASE}/api/teachers`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, phone })
@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
       formData["vollst_x00e4_ndigerName"] = ${formData["Title"]} ${formData["Nachname"]};
 
       try {
-        const response = await fetch(${API_BASE}/submit, {
+        const response = await fetch(`${API_BASE}/submit`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const formData = Object.fromEntries(new FormData(e.target));
 
     try {
-      const response = await fetch(${API_BASE}/update/${id}, {
+      const response = await fetch(`${API_BASE}/update/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -251,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const formData = Object.fromEntries(new FormData(e.target));
 
       try {
-        const response = await fetch(${API_BASE}/update/${id}, {
+        const response = await fetch(`${API_BASE}/update/${id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     (async () => {
       try {
-        const response = await fetch(${API_BASE}/get/${candidateId});
+        const response = await fetch(`${API_BASE}/get/${candidateId}`);
         const data = await response.json();
         const initialData = { ...data };
 
@@ -380,7 +380,7 @@ async function handleReviewSubmission(redirectTo) {
     return;
   }
 
-  const patchResponse = await fetch(${API_BASE}/update/${candidateId}, {
+  const patchResponse = await fetch(`${API_BASE}/update/${candidateId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updatedData),
@@ -456,7 +456,7 @@ async function handleReviewSubmission(redirectTo) {
       ["groupB22", "Niveau B2.2"]
     ];
 
-    const response = await fetch(${API_BASE}/groupes);
+    const response = await fetch(`${API_BASE}/groupes`);
     const groups = await response.json();
 
     groupIds.forEach(([selectId, prefix]) => {
@@ -487,7 +487,7 @@ async function populateCurrentGroupDropdown() {
     if (!niveau) return;
 
     try {
-      const response = await fetch(${API_BASE}/groupes);
+      const response = await fetch(`${API_BASE}/groupes`);
       const groups = await response.json();
 
       const seenTitles = new Set(); // 🔍 Pour filtrer les doublons
@@ -519,7 +519,7 @@ if (loginForm) {
     const errorMessage = document.getElementById("loginError");
 
     try {
-      const response = await fetch(${API_BASE}/api/login, {
+      const response = await fetch(`${API_BASE}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ login, password })
