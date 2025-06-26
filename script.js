@@ -382,18 +382,24 @@ async function handleReviewSubmission(redirectTo) {
 
   console.log("📤 Données envoyées au PATCH :", updatedData);
 
-  const patchResponse = await fetch(`${API_BASE}/update/${candidateId}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(updatedData),
-  });
+  try {
+    const patchResponse = await fetch(`${API_BASE}/update/${candidateId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedData),
+    });
 
-  if (patchResponse.ok) {
-    window.location.href = redirectTo;
-  } else {
-    alert("❌ Fehler beim Speichern.");
+    if (patchResponse.ok) {
+      window.location.href = redirectTo;
+    } else {
+      alert("❌ Fehler beim Speichern.");
+    }
+  } catch (err) {
+    console.error("❌ Erreur lors de la mise à jour :", err);
+    alert("Erreur de connexion au serveur.");
   }
 }
+
 
 
   // ----- Menu Animation -----
