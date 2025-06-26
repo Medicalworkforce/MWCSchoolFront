@@ -7,22 +7,20 @@
   <title>Sprachliche Angaben</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="MWC.png">
-  <link rel="icon" type="image/png" href="MWC.png">
-  
 </head>
 <body style="background-color: #f0f2f5; padding: 0px 0; overflow-y: auto;">
   <div class="container">
     <div class="sidebar">
-  <div class="sidebar-header">
-    <img src="MWC.png" alt="Logo" class="logo" style="margin-left: 80px;"><br/><br/>
-    <h2 class="sidebar-title">Kandidatenformular</h2>
-  </div>
-  <ul class="milestone">
-  <li class="active">Persönliche Angaben</li>
-  <li class="active">Sprachliche Angaben</li>
-  <li>Vermittlung</li>
-  <li>Überprüfung</li>
-</ul>
+      <div class="sidebar-header">
+        <img src="MWC.png" alt="Logo" class="logo" style="margin-left: 80px;"><br/><br/>
+        <h2 class="sidebar-title">Kandidatenformular</h2>
+      </div>
+      <ul class="milestone">
+        <li class="active">Persönliche Angaben</li>
+        <li class="active">Sprachliche Angaben</li>
+        <li>Vermittlung</li>
+        <li>Überprüfung</li>
+      </ul>
     </div>
     <div class="form-wrapper">
       <form id="step2Form" class="form-grid three-columns">
@@ -43,11 +41,30 @@
           </select>
         </div>
 
+        <!-- 🌟 Aktuelle Gruppe -->
+        <div class="form-group">
+          <label for="currentGroup">Aktuelle Gruppe</label>
+          <select id="currentGroup" name="Groupe0">
+            <option value="" disabled selected>Bitte wählen...</option>
+          </select>
+        </div>
+
+        <!-- 🌟 Kursart -->
+        <div class="form-group">
+          <label for="unterrichtsform">Kursart</label>
+          <select id="unterrichtsform" name="Unterrichtsform">
+            <option value="" disabled selected>Bitte wählen...</option>
+            <option value="Präsenz">Präsenz</option>
+            <option value="Online">Online</option>
+          </select>
+        </div>
+
         <div class="form-group">
           <label for="b1testdate">B1 Testdatum</label>
           <input type="date" id="b1testdate" name="Testdatum_B1">
         </div>
 
+        <!-- Les autres champs existants de groupes A1/A2/B1/B2 restent inchangés ici -->
 
         <div class="form-group">
           <label for="groupA11">Gruppe A 1.1</label>
