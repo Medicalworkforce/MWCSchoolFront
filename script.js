@@ -368,8 +368,11 @@ async function handleReviewSubmission(redirectTo) {
   let hasChanges = false;
 
   for (const [key, value] of formData.entries()) {
-    if (initialData[key] !== value) {
-      updatedData[key] = value;
+    const trimmed = value.trim?.() ?? value;
+
+    // ✅ Ne pas envoyer si valeur vide OU identique à l’original
+    if (trimmed !== "" && initialData[key] !== trimmed) {
+      updatedData[key] = trimmed;
       hasChanges = true;
     }
   }
@@ -380,25 +383,25 @@ async function handleReviewSubmission(redirectTo) {
     return;
   }
 
-  const patchResponse = await fetch(`${API_BASE}/update/${candidateId}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(updatedData),
-  });
+  try {
+    const patchResponse = await fetch(`${API_BASE}/update/${candidateId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedData),
+    });
 
-  if (patchResponse.ok) {
-    
-    window.location.href = redirectTo;
-  } else {
-    alert("❌ Fehler beim Speichern.");
+    if (patchResponse.ok) {
+      window.location.href = redirectTo;
+    } else {
+      const errorText = await patchResponse.text();
+      console.error("❌ Fehler beim Speichern:", errorText);
+      alert("❌ Fehler beim Speichern.");
+    }
+  } catch (err) {
+    console.error("❌ PATCH Netzwerkfehler:", err);
+    alert("Netzwerkfehler oder ungültige Daten.");
   }
 }
-      } catch (err) {
-        console.error("❌ Fehler beim Laden der Daten:", err);
-        alert("Fehler beim Laden der Daten.");
-      }
-    })();
-  }
 
 
   // ----- Menu Animation -----
