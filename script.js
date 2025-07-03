@@ -508,6 +508,48 @@ async function populateCurrentGroupDropdown() {
 }
 
 
+  //code update *************
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const table = document.getElementById("candidatesTable");
+  if (!table) return; // Ne fait rien si on n’est pas sur liste-candidaten.html
+
+  try {
+    const response = await fetch("http://localhost:3000/kandidaten");
+    const candidats = await response.json();
+
+    const tbody = table.querySelector("tbody");
+    candidats.forEach(kandidat => {
+      const row = document.createElement("tr");
+
+      const nameCell = document.createElement("td");
+      nameCell.textContent = kandidat.vollst_x00e4_ndigerName || "(Kein Name)";
+      row.appendChild(nameCell);
+
+      const actionCell = document.createElement("td");
+      const editButton = document.createElement("button");
+      editButton.className = "edit-button";
+      editButton.textContent = "Bearbeiten";
+      editButton.onclick = () => {
+        window.location.href = `modifier-candidat.html?id=${kandidat.ID}`;
+      };
+      actionCell.appendChild(editButton);
+      row.appendChild(actionCell);
+
+      tbody.appendChild(row);
+    });
+  } catch (err) {
+    console.error("❌ Fehler beim Laden der Kandidaten:", err);
+    alert("Fehler beim Laden der Kandidaten.");
+  }
+});
+
+
+
+//fin code update *************
+
+  
+
 });
 // LOGIN HANDLER
 const loginForm = document.getElementById("loginForm");
