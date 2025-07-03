@@ -515,7 +515,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (!table) return; // Ne fait rien si on n’est pas sur liste-candidaten.html
 
   try {
-    const response = await fetch("http://localhost:3000/kandidaten");
+    const response = await fetch(`${API_BASE}/kandidaten`);
     const candidats = await response.json();
 
     const tbody = table.querySelector("tbody");
