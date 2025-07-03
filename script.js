@@ -507,6 +507,12 @@ async function populateCurrentGroupDropdown() {
   });
 }
 
+ 
+
+});
+
+
+
 
   //code update *************
 
@@ -547,10 +553,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 //fin code update *************
-
-  
-
-});
 // LOGIN HANDLER
 const loginForm = document.getElementById("loginForm");
 if (loginForm) {
