@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kandidat bearbeiten</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="modifier-candidat.js" defer></script>
+  <link rel="icon" type="image/png" href="MWC.png">
+</head>
+<body style="background-color: #f0f2f5; padding: 0; margin: 0;">
+  <div class="container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <img src="MWC.png" alt="Logo" class="logo" style="margin-left: 80px;"><br/><br/>
+        <h2 class="sidebar-title">Kandidatenformular</h2>
+      </div>
+      <ul class="milestone">
+        <li class="active">Bearbeiten</li>
+      </ul>
+    </div>
+    <div class="form-wrapper">
+<form id="editCandidateForm" class="form-grid three-columns">
+
+<div class="form-group">
+  <label for="Title">Vorname</label>
+  <input type="text" name="Title" id="Title" />
+</div>
+
+<div class="form-group">
+  <label for="Nachname">Nachname</label>
+  <input type="text" name="Nachname" id="Nachname" />
+</div>
+
+<div class="form-group">
+  <label for="CIN">Identifikationsnummer</label>
+  <input type="text" name="CIN" id="CIN" />
+</div>
+
+<div class="form-group">
+  <label for="E_x002d_Mail_x002d_Adresse">E-Mail-Adresse</label>
+  <input type="email" name="E_x002d_Mail_x002d_Adresse" id="E_x002d_Mail_x002d_Adresse" />
+</div>
+
+<div class="form-group">
+  <label for="Telefonnummer">Telefonnummer</label>
+  <input type="text" name="Telefonnummer" id="Telefonnummer" />
+</div>
+
+<div class="form-group">
+  <label for="Alter">Alter</label>
+  <input type="number" name="Alter" id="Alter" />
+</div>
+
+<div class="form-group">
+  <label for="Familienstand">Familienstand</label>
+  <select name="Familienstand" id="Familienstand">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="Kinder">Kinder</label>
+  <select name="Kinder" id="Kinder">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="AnzahlderKinder">Anzahl der Kinder</label>
+  <input type="number" name="AnzahlderKinder" id="AnzahlderKinder" />
+</div>
+
+<div class="form-group">
+  <label for="Berufsbezeichnung">Berufsbezeichnung</label>
+  <input type="text" name="Berufsbezeichnung" id="Berufsbezeichnung" />
+</div>
+
+<div class="form-group">
+  <label for="AnzahlderBerufsjahre">Anzahl der Berufsjahre</label>
+  <select name="AnzahlderBerufsjahre" id="AnzahlderBerufsjahre">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="Schule">Schule</label>
+  <select name="Schule" id="Schule">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="Eintrittsdatum_des_Kandidaten_in">Eintrittsdatum in Schule</label>
+  <input type="date" name="Eintrittsdatum_des_Kandidaten_in" id="Eintrittsdatum_des_Kandidaten_in" />
+</div>
+
+<div class="form-group">
+  <label for="Verhalten_des_Kandidaten">Verhalten</label>
+  <input type="text" name="Verhalten_des_Kandidaten" id="Verhalten_des_Kandidaten" />
+</div>
+
+<div class="form-group">
+  <label for="Zugeh_x00f6_rigkeit">Zugehörigkeit</label>
+  <select name="Zugeh_x00f6_rigkeit" id="Zugeh_x00f6_rigkeit">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="Niveaux">Sprachniveau</label>
+  <select name="Niveaux" id="Niveaux">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="Unterniveau">Unterniveau</label>
+  <select name="Unterniveau" id="Unterniveau">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="Groupe0">Aktuelle Gruppe</label>
+  <select name="Groupe0" id="Groupe0">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<!-- Unterrichtsform -->
+<div class="form-group">
+  <label for="Unterrichtsform">Unterrichtsform</label>
+  <select name="Unterrichtsform" id="Unterrichtsform">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<!-- Testdatum B1 -->
+<div class="form-group">
+  <label for="Testdatum_B1">Testdatum B1</label>
+  <input type="date" name="Testdatum_B1" id="Testdatum_B1" />
+</div>
+
+<!-- Tu peux maintenant continuer avec tous les groupes dynamiques -->
+
+
+ <div class="form-group">
+  <label for="Anzahl_Stunden_A1_x002e_1">Gruppe A 1.1</label>
+  <select name="Anzahl_Stunden_A1_x002e_1" id="Anzahl_Stunden_A1_x002e_1">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="Anzahl_Stunden_A1_x002e_2">Gruppe A 1.2</label>
+  <select name="Anzahl_Stunden_A1_x002e_2" id="Anzahl_Stunden_A1_x002e_2">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="Anzahl_Stunden_A2_x002e_1">Gruppe A 2.1</label>
+  <select name="Anzahl_Stunden_A2_x002e_1" id="Anzahl_Stunden_A2_x002e_1">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="Anzahl_Stunden_A2_x002e_2">Gruppe A 2.2</label>
+  <select name="Anzahl_Stunden_A2_x002e_2" id="Anzahl_Stunden_A2_x002e_2">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="Anzahl_Stunden_B1_x002e_1">Gruppe B 1.1</label>
+  <select name="Anzahl_Stunden_B1_x002e_1" id="Anzahl_Stunden_B1_x002e_1">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="Anzahl_Stunden_B1_x002e_2">Gruppe B 1.2</label>
+  <select name="Anzahl_Stunden_B1_x002e_2" id="Anzahl_Stunden_B1_x002e_2">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="Anzahl_Stunden_B2_x002e_1">Gruppe B 2.1</label>
+  <select name="Anzahl_Stunden_B2_x002e_1" id="Anzahl_Stunden_B2_x002e_1">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="Anzahl_Stunden_B2_x002e_2">Gruppe B 2.2</label>
+  <select name="Anzahl_Stunden_B2_x002e_2" id="Anzahl_Stunden_B2_x002e_2">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+
+<!-- Datum des Vorgesprächs -->
+<div class="form-group">
+  <label for="Datum_des_Vorgespr_x00e4_chs">Datum des Vorgesprächs</label>
+  <input type="date" name="Datum_des_Vorgespr_x00e4_chs" id="Datum_des_Vorgespr_x00e4_chs" />
+</div>
+
+<!-- Ergebnis des Vorgesprächs -->
+<div class="form-group">
+  <label for="Ergebnis_des_Vorgespr_x00e4_chs">Ergebnis des Vorgesprächs</label>
+  <input type="text" name="Ergebnis_des_Vorgespr_x00e4_chs" id="Ergebnis_des_Vorgespr_x00e4_chs" />
+</div>
+
+<!-- Vorstellungsgespräch -->
+<div class="form-group">
+  <label for="Vorstellungsgespr_x00e4_ch">Vorstellungsgespräch</label>
+  <select name="Vorstellungsgespr_x00e4_ch" id="Vorstellungsgespr_x00e4_ch">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<!-- Datum Vorstellungsgespräch -->
+<div class="form-group">
+  <label for="Datum_Vorstellungsgespr_x00e4_ch">Datum Vorstellungsgespräch</label>
+  <input type="date" name="Datum_Vorstellungsgespr_x00e4_ch" id="Datum_Vorstellungsgespr_x00e4_ch" />
+</div>
+
+<!-- Defizitbescheid -->
+<div class="form-group">
+  <label for="Defizitbescheid">Defizitbescheid</label>
+  <select name="Defizitbescheid" id="Defizitbescheid">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<!-- Arbeitgeber -->
+<div class="form-group">
+  <label for="Arbeitgeber">Arbeitgeber</label>
+  <input type="text" name="Arbeitgeber" id="Arbeitgeber" />
+</div>
+
+<!-- Bundesland -->
+<div class="form-group">
+  <label for="Bundesland">Bundesland</label>
+  <input type="text" name="Bundesland" id="Bundesland" />
+</div>
+
+<!-- Aktuelle Phase -->
+<div class="form-group">
+  <label for="Aktuelle_Phase">Aktuelle Phase</label>
+  <select name="Aktuelle_Phase" id="Aktuelle_Phase">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<!-- Reisedatum -->
+<div class="form-group">
+  <label for="Reisedatum">Reisedatum</label>
+  <input type="date" name="Reisedatum" id="Reisedatum" />
+</div>
+
+<!-- Start Anerkennungsverfahren -->
+<div class="form-group">
+  <label for="Starte_Anerkennungsverfahren">Start Anerkennungsverfahren</label>
+  <input type="date" name="Starte_Anerkennungsverfahren" id="Starte_Anerkennungsverfahren" />
+</div>
+
+<!-- Vermittlungsstand -->
+<div class="form-group">
+  <label for="Vermittlungsstand">Vermittlungsstand</label>
+  <select name="Vermittlungsstand" id="Vermittlungsstand">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<!-- Vorabzustimmung -->
+<div class="form-group">
+  <label for="Vorabzustimmung">Vorabzustimmung</label>
+  <select name="Vorabzustimmung" id="Vorabzustimmung">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<!-- Visum -->
+<div class="form-group">
+  <label for="Visum">Visum</label>
+  <select name="Visum" id="Visum">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<!-- Dokumentenübersetzung -->
+<div class="form-group">
+  <label for="Dokumenten_x00fc_bersetzung">Dokumentenübersetzung</label>
+  <select name="Dokumenten_x00fc_bersetzung" id="Dokumenten_x00fc_bersetzung">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<!-- B2-Test bestanden -->
+<div class="form-group">
+  <label for="B2_x002d_Testbestanden">B2-Test bestanden</label>
+  <select name="B2_x002d_Testbestanden" id="B2_x002d_Testbestanden">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+<!-- Vertrag unterschrieben -->
+<div class="form-group">
+  <label for="Vertragunterschrieben">Vertrag unterschrieben</label>
+  <select name="Vertragunterschrieben" id="Vertragunterschrieben">
+    <option value="">Bitte wählen</option>
+  </select>
+</div>
+
+
+
+<!-- Bouton d’enregistrement -->
+<div style="grid-column: span 3; text-align: right; margin-top: 20px;">
+  <button type="submit" class="btn btn-primary">Änderungen speichern</button>
+</div>
+
+</form>
+
+    </div>
+  </div>
+</body>
+</html>

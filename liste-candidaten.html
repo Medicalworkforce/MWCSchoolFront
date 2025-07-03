@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kandidaten bearbeiten</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+  <link rel="icon" type="image/png" href="MWC.png">
+  <style>
+    .candidates-table {
+      width: 90%;
+      margin: 40px auto;
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+    }
+    .candidates-table th,
+    .candidates-table td {
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      text-align: left;
+    }
+    .candidates-table th {
+      background-color: #f0f0f0;
+    }
+    .edit-button {
+      border: none;
+      background: none;
+      color: green;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .edit-button:hover {
+      text-decoration: underline;
+    }
+    h2 {
+      text-align: center;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Kandidaten bearbeiten</h2>
+  <table class="candidates-table" id="candidatesTable">
+    <thead>
+      <tr>
+        <th>Vollständiger Name</th>
+        <th>Aktion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 👇 Les lignes seront ajoutées dynamiquement -->
+    </tbody>
+  </table>
+</body>
+</html>
