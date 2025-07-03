@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:3000";
+const API_BASE = "https://mwcschoolback-production-4733.up.railway.app";
 
 // Fonction pour remplir le champ Aktuelle Gruppe (Groupe0)
 function fillGroupe0Options(unterniveauValue, gruppen, groupe0Field) {
