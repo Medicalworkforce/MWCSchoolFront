@@ -1,14 +1,5 @@
 const API_BASE = "https://mwcschoolback-production-4733.up.railway.app";
 
-// Run login protection
-(function() {
-    const currentPage = window.location.pathname.split("/").pop();
-
-    // Exclude login page itself
-    if (currentPage !== "login.html" && !localStorage.getItem("loggedInUser")) {
-        window.location.href = "login.html";
-    }
-})();
 
 document.addEventListener("DOMContentLoaded", () => {
   // ----- Groupe Form Logic -----
