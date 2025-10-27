@@ -86,11 +86,15 @@ function updateGroupName() {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     const cleanedUnterniveau = unterniveau.replace(/\s/g, "");
-    const base = `Niveau ${cleanedUnterniveau} ${prof} Session ${month}/${year}`;
-    const name = suffix ? `${base} — ${suffix}` : base; // suffixe optionnel
+
+    // suffixe AVANT la session
+    const middle = suffix ? ` ${prof} - ${suffix}` : ` ${prof}`;
+    const name = `Niveau ${cleanedUnterniveau}${middle} Session ${month}/${year}`;
+
     if (titleInput) titleInput.value = name;
   }
 }
+
 
 
   if (groupForm) {
