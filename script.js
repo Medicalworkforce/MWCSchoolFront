@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const endDateInput = document.getElementById("Enddate");
   const titleInput = document.getElementById("Title");
   const profSelect = document.getElementById("Prof");
+  const groupSuffixInput = document.getElementById("groupSuffix");
+
 
   const unterNiveaus = {
     A1: ["A 1.1", "A 1.2"],
@@ -44,6 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (startDateInput) startDateInput.addEventListener("change", updateGroupName);
   if (profSelect) profSelect.addEventListener("change", updateGroupName);
 
+  if (groupSuffixInput) groupSuffixInput.addEventListener("input", updateGroupName);
+
+
   async function loadLehrerList() {
     try {
       const response = await fetch(`${API_BASE}/lehrer`);
@@ -69,21 +74,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   loadLehrerList();
 
-  function updateGroupName() {
-    const niveau = niveauSelect?.value;
-    const unterniveau = sousNiveauSelect?.value;
-    const prof = profSelect?.options[profSelect.selectedIndex]?.text || "";
-    const startDate = startDateInput?.value;
+function updateGroupName() {
+  const niveau = niveauSelect?.value;
+  const unterniveau = sousNiveauSelect?.value;
+  const prof = profSelect?.options[profSelect.selectedIndex]?.text || "";
+  const startDate = startDateInput?.value;
+  const suffix = (groupSuffixInput?.value || "").trim();
 
-    if (niveau && unterniveau && prof && startDate) {
-      const date = new Date(startDate);
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const year = date.getFullYear();
-      const cleanedUnterniveau = unterniveau.replace(/\s/g, "");
-      const name = `Niveau ${cleanedUnterniveau} ${prof} Session ${month}/${year}`;
-      if (titleInput) titleInput.value = name;
-    }
+  if (niveau && unterniveau && prof && startDate) {
+    const date = new Date(startDate);
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    const cleanedUnterniveau = unterniveau.replace(/\s/g, "");
+    const base = `Niveau ${cleanedUnterniveau} ${prof} Session ${month}/${year}`;
+    const name = suffix ? `${base} — ${suffix}` : base; // suffixe optionnel
+    if (titleInput) titleInput.value = name;
   }
+}
+
 
   if (groupForm) {
     groupForm.addEventListener("submit", async (e) => {
@@ -95,15 +103,17 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const data = {
-        Title: titleInput.value,
-        Sousniveau: niveauSelect.value,
-        SousNiveau0: sousNiveauSelect.value,
-        Prof: profSelect.options[profSelect.selectedIndex].text,
-        ProfId: profSelect.value,
-        Startdate: startDateInput.value,
-        Enddate: endDateInput.value
-      };
+const data = {
+  Title: titleInput.value,
+  Sousniveau: niveauSelect.value,
+  SousNiveau0: sousNiveauSelect.value,
+  Prof: profSelect.options[profSelect.selectedIndex].text,
+  ProfId: profSelect.value,
+  Startdate: startDateInput.value,
+  Enddate: endDateInput.value,
+  Suffix: (groupSuffixInput?.value || "").trim()  // ⬅️ nouveau
+};
+
 
       try {
         const response = await fetch(`${API_BASE}/add-group`, {
